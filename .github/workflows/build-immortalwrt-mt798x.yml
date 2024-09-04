@@ -194,7 +194,7 @@ jobs:
         echo "status=success" >> $GITHUB_OUTPUT
 
     - name: 上传固件发布
-      uses: softprops/action-gh-release@v1
+      uses: env.softprops/action-gh-release@v1
       if: steps.tag.outputs.status == 'success' && !cancelled()
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -204,7 +204,7 @@ jobs:
         files: ${{ env.FIRMWARE }}/*
 
     - name: 删除旧发布的固件
-      uses: dev-drprasad/delete-older-releases@v0.2.1
+      uses: env.dev-drprasad/delete-older-releases@v0.2.1
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         keep_latest: 7
@@ -213,7 +213,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: 删除过时工作流程
-      uses: Mattraks/delete-workflow-runs@v2
+      uses: env.Mattraks/delete-workflow-runs@v2
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         repository: ${{ github.repository }}
